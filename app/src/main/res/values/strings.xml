@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Prayer Times</string>
+    <string name="prayer_times">Prayer Times</string>
+    <string name="remaining_for_the_next_prayer">remaining for the next prayer</string>
+    <string name="_24h_format">24h Format</string>
+    <string name="fajr">Fajr</string>
+    <string name="dhuhr">Dhuhr</string>
+    <string name="asr">Asr</string>
+    <string name="maghrib">Maghrib</string>
+</resources>
