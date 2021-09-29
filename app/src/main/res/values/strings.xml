@@ -7,4 +7,15 @@
     <string name="dhuhr">Dhuhr</string>
     <string name="asr">Asr</string>
     <string name="maghrib">Maghrib</string>
+    <string name="settings">Settings</string>
+    <string name="prayers_reminder">Prayers Reminder</string>
+    <string name="set_location">Set Location</string>
+    <string name="about">About</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="rate_the_app">Rate The App</string>
+    <string name="share_the_app">Share The App</string>
+    <string name="location">Location</string>
+    <string name="auto_locate_me">Auto Locate Me</string>
+    <string name="select_where_you_are">Select Where You Are</string>
+    <string name="save_location">Save Location</string>
 </resources>
