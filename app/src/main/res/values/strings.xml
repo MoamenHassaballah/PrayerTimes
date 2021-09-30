@@ -18,4 +18,7 @@
     <string name="auto_locate_me">Auto Locate Me</string>
     <string name="select_where_you_are">Select Where You Are</string>
     <string name="save_location">Save Location</string>
+    <string name="select_location_method">You need to have one active location method</string>
+    <string name="location_rational">We need the permission to access your location</string>
+    <string name="couldnt_get_location">Couldn\'t get your location, Please select your location manually</string>
 </resources>
