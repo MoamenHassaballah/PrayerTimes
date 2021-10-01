@@ -2,12 +2,10 @@ package com.moaapps.prayertimesdemo.viewmodel
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.util.Log
-import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,12 +13,13 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.OnTokenCanceledListener
-import com.google.android.material.snackbar.Snackbar
-import com.moaapps.prayertimesdemo.LocationActivity
-import com.moaapps.prayertimesdemo.R
+import com.moaapps.prayertimesdemo.utils.Constants
 import com.moaapps.prayertimesdemo.utils.Constants.CITY
+import com.moaapps.prayertimesdemo.utils.Constants.CITY_ID
 import com.moaapps.prayertimesdemo.utils.Constants.COUNTRY
+import com.moaapps.prayertimesdemo.utils.Constants.COUNTRY_ID
 import com.moaapps.prayertimesdemo.utils.Constants.STATE
+import com.moaapps.prayertimesdemo.utils.Constants.STATE_ID
 import com.moaapps.prayertimesdemo.utils.Resource
 import com.moaapps.prayertimesdemo.utils.TinyDB
 
@@ -82,14 +81,17 @@ class LocationViewModel : ViewModel() {
 
         if (!country.isNullOrEmpty()){
             tinyDb.putString(COUNTRY, country)
+            tinyDb.putInt(COUNTRY_ID, 0)
         }
 
         if (!state.isNullOrEmpty()) {
             tinyDb.putString(STATE, state)
+            tinyDb.putInt(STATE_ID, 0)
         }
 
         if (!city.isNullOrEmpty()) {
             tinyDb.putString(CITY, city)
+            tinyDb.putInt(CITY_ID, 0)
         }
     }
 

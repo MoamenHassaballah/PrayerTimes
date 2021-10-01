@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LocationActivity"
+    tools:context=".activities.LocationActivity"
     android:animateLayoutChanges="true">
 
     <LinearLayout
@@ -82,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="@dimen/_10sdp">
+                android:layout_margin="@dimen/_10sdp"
+                android:layoutDirection="ltr">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,21 +93,25 @@
                     android:fontFamily="@font/roboto_medium"/>
 
                 <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_countries"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     />
 
                 <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_states"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     />
 
                 <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_cities"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginVertical="@dimen/_20sdp"
+
                     />
 
                 <androidx.appcompat.widget.AppCompatButton

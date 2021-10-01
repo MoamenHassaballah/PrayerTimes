@@ -17,13 +17,13 @@
         android:theme="@style/Theme.PrayerTimes"
         tools:targetApi="m">
         <activity
-            android:name=".LocationActivity"
+            android:name=".activities.LocationActivity"
             android:exported="true" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" />
 
         <meta-data

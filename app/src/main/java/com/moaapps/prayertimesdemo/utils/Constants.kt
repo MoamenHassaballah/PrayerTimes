@@ -7,7 +7,10 @@ object Constants {
     const val LATITUDE = "latitude"
     const val LONGITUDE = "longitude"
     const val COUNTRY = "country"
+    const val COUNTRY_ID = "country_id"
     const val CITY = "city"
+    const val CITY_ID = "city_id"
     const val STATE = "state"
+    const val STATE_ID = "state_id"
     const val TIMINGS = "timings"
 }
