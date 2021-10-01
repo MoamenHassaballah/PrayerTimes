@@ -94,6 +94,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/location_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15sdp"
@@ -194,6 +195,7 @@
 
 
                         <TextView
+                            android:id="@+id/fajr"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -230,6 +232,7 @@
 
 
                         <TextView
+                            android:id="@+id/dhuhr"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -266,6 +269,7 @@
 
 
                         <TextView
+                            android:id="@+id/asr"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -302,6 +306,7 @@
 
 
                         <TextView
+                            android:id="@+id/maghrib"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -338,6 +343,7 @@
 
 
                         <TextView
+                            android:id="@+id/isha"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"

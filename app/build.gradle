@@ -51,6 +51,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.airbnb.android:lottie:4.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-rc01'
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+
 
 
 }

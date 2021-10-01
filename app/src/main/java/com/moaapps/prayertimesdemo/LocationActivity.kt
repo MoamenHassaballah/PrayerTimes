@@ -1,6 +1,7 @@
 package com.moaapps.prayertimesdemo
 
 import android.Manifest
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -18,9 +19,11 @@ import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.google.android.material.snackbar.Snackbar
 import com.moaapps.prayertimesdemo.databinding.ActivityLocationBinding
-import com.moaapps.prayertimesdemo.utils.LoadingDialog
-import com.moaapps.prayertimesdemo.utils.Status
-import com.moaapps.prayertimesdemo.utils.TinyDB
+import com.moaapps.prayertimesdemo.utils.*
+import com.moaapps.prayertimesdemo.utils.Constants.LATITUDE
+import com.moaapps.prayertimesdemo.utils.Constants.LOCATION_METHOD
+import com.moaapps.prayertimesdemo.utils.Constants.LOCATION_METHOD_AUTO
+import com.moaapps.prayertimesdemo.utils.Constants.LONGITUDE
 import com.moaapps.prayertimesdemo.viewmodel.LocationViewModel
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -88,12 +91,14 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         }
 
         locationViewModel.location.observe(this, {
+            Log.d(TAG, "onCreate: ${it.status}, ${it.data}, ${it.message}")
             when(it.status){
                 Status.LOADING -> loadingDialog.show()
                 Status.FAIL -> {
                     loadingDialog.dismiss()
                     binding.setManually.isOn = true
                     binding.manualLocationLayout.visibility = View.VISIBLE
+                    binding.autoLocate.isOn = false
                     Snackbar.make(
                         binding.root,
                         R.string.couldnt_get_location,
@@ -105,12 +110,29 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                     binding.setManually.isOn = false
                     binding.manualLocationLayout.visibility = View.GONE
                     Log.d(TAG, "onCreate: ${it.data}")
+
+                    tinyDb.putString(LOCATION_METHOD, LOCATION_METHOD_AUTO)
+                    tinyDb.putDouble(LATITUDE, it.data?.latitude!!)
+                    tinyDb.putDouble(LONGITUDE, it.data.longitude)
+
+                    Snackbar.make(binding.root, R.string.location_updated, Snackbar.LENGTH_SHORT).show()
+                    MainActivity.start(this)
                 }
             }
         })
 
         binding.saveLocation.setOnClickListener { MainActivity.start(this) }
 
+
+        if (tinyDb.getString(LOCATION_METHOD) == LOCATION_METHOD_AUTO){
+            binding.autoLocate.isOn = true
+            binding.setManually.isOn = false
+            binding.manualLocationLayout.visibility = View.GONE
+        }else{
+            binding.setManually.isOn = true
+            binding.manualLocationLayout.visibility = View.VISIBLE
+            binding.autoLocate.isOn = false
+        }
 
     }
 
@@ -142,4 +164,6 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
             ).show()
         }
     }
+    
+   
 }

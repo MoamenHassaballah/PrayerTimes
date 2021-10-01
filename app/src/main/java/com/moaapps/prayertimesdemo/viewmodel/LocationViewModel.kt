@@ -1,8 +1,10 @@
 package com.moaapps.prayertimesdemo.viewmodel
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.util.Log
 import android.view.View
@@ -16,14 +18,18 @@ import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.google.android.material.snackbar.Snackbar
 import com.moaapps.prayertimesdemo.LocationActivity
 import com.moaapps.prayertimesdemo.R
+import com.moaapps.prayertimesdemo.utils.Constants.CITY
+import com.moaapps.prayertimesdemo.utils.Constants.COUNTRY
+import com.moaapps.prayertimesdemo.utils.Constants.STATE
 import com.moaapps.prayertimesdemo.utils.Resource
+import com.moaapps.prayertimesdemo.utils.TinyDB
 
 class LocationViewModel : ViewModel() {
     companion object {private const val TAG = "LocationViewModel"}
 
     val location = MutableLiveData<Resource<Location>>()
 
-    fun getUserLocation(context: Context){
+    fun getUserLocation(context: Activity){
         location.postValue(Resource.loading())
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
         if (ActivityCompat.checkSelfPermission(
@@ -48,15 +54,42 @@ class LocationViewModel : ViewModel() {
 
             }).addOnCompleteListener {
                 if (it.isSuccessful) {
+                    Log.d(TAG, "getUserLocation: ${it.result}")
                     if(it.result != null){
-                        location.postValue(Resource.success(it.result))
+                        setAddress(context, it.result)
+                        location.value = Resource.success(it.result)
                     }else{
-                        location.postValue(Resource.error())
+                        location.value = Resource.error()
                     }
                 } else {
-                    location.postValue(Resource.error())
+                    Log.d(TAG, "getUserLocation: ${it.exception?.message}")
+                    location.value = Resource.error()
                 }
             }
+        }
+    }
+
+
+    private fun setAddress(context: Activity, location: Location){
+        val addresses = Geocoder(context).getFromLocation(location.latitude, location.longitude, 1)
+        val tinyDb = TinyDB(context)
+
+        val country = addresses[0].countryName
+        val state = addresses[0].adminArea
+        val city = addresses[0].locality
+
+        Log.d(TAG, "setAddress: $city, $state, $country")
+
+        if (!country.isNullOrEmpty()){
+            tinyDb.putString(COUNTRY, country)
+        }
+
+        if (!state.isNullOrEmpty()) {
+            tinyDb.putString(STATE, state)
+        }
+
+        if (!city.isNullOrEmpty()) {
+            tinyDb.putString(CITY, city)
         }
     }
 

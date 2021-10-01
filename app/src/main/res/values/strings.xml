@@ -21,4 +21,6 @@
     <string name="select_location_method">You need to have one active location method</string>
     <string name="location_rational">We need the permission to access your location</string>
     <string name="couldnt_get_location">Couldn\'t get your location, Please select your location manually</string>
+    <string name="location_updated">Location updated successfully</string>
+    <string name="error_occured">An error occured</string>
 </resources>

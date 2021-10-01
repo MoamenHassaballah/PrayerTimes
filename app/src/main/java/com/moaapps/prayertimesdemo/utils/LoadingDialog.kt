@@ -13,8 +13,9 @@ class LoadingDialog(context: Context, type:Int) {
 
     init {
         val locationView = LayoutInflater.from(context).inflate(R.layout.loading_location, null)
+        val loadingView = LayoutInflater.from(context).inflate(R.layout.loading, null)
         dialog.setCancelable(false)
-        dialog.setContentView(locationView)
+        dialog.setContentView(if(type == 0) loadingView else locationView)
     }
 
 

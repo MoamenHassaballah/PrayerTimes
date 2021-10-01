@@ -11,7 +11,7 @@ class Resource<T>(val status: Status, val data:T?, val message:String) {
         }
 
         fun<T> success(data:T, message:String = ""):Resource<T> {
-            return Resource(Status.LOADING, data, message)
+            return Resource(Status.SUCCESSFUL, data, message)
         }
     }
 }

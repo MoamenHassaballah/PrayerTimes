@@ -7,7 +7,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_200sdp"
-        app:lottie_rawRes="@raw/location"
+        app:lottie_fileName="location.json"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"/>
 
