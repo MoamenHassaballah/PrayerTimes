@@ -65,7 +65,8 @@
                 app:cardElevation="@dimen/_30sdp"
                 app:cardCornerRadius="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_25sdp"
-                android:layout_marginBottom="@dimen/_5sdp">
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:animateLayoutChanges="true">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,6 +84,7 @@
                         android:layout_marginBottom="@dimen/_5sdp"/>
 
                     <TextView
+                        android:id="@+id/remaining_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -146,7 +148,8 @@
                 app:cardElevation="@dimen/_30sdp"
                 app:cardCornerRadius="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_30sdp">
+                android:layout_marginBottom="@dimen/_30sdp"
+                android:animateLayoutChanges="true">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -166,16 +169,20 @@
                             android:layout_centerVertical="true"/>
 
                         <com.github.angads25.toggle.widget.LabeledSwitch
+                            android:id="@+id/time_format_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
                             android:textSize="14sp"
-                            app:textOff=""
-                            app:textOn=""
-                            app:on="true"
                             app:colorBorder="@color/black"
                             app:colorOn="@color/black"
-                            android:layout_alignParentEnd="true"/>
+                            app:on="true"
+                            app:textOff=""
+                            app:textOn="" />
                     </RelativeLayout>
 
 
@@ -337,7 +344,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Isha"
+                            android:text="@string/isha"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_20ssp" />
 

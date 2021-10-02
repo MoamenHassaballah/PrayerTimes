@@ -8,15 +8,18 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.androidnetworking.AndroidNetworking
 import com.google.android.material.snackbar.Snackbar
+import com.moaapps.prayertimesdemo.R
 import com.moaapps.prayertimesdemo.databinding.ActivityMainBinding
 import com.moaapps.prayertimesdemo.modules.PrayerTimes
 import com.moaapps.prayertimesdemo.utils.Constants.CITY
 import com.moaapps.prayertimesdemo.utils.Constants.COUNTRY
 import com.moaapps.prayertimesdemo.utils.Constants.STATE
+import com.moaapps.prayertimesdemo.utils.Constants.TWELVE_TIME_FORMAT
 import com.moaapps.prayertimesdemo.utils.LoadingDialog
 import com.moaapps.prayertimesdemo.utils.Status.*
 import com.moaapps.prayertimesdemo.utils.TinyDB
 import com.moaapps.prayertimesdemo.viewmodel.PrayerTimesViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var prayerTimesViewModel: PrayerTimesViewModel
     private lateinit var loadingDialog: LoadingDialog
     private var countRemainingTime:Boolean = true
+    private lateinit var prayerTimes: PrayerTimes
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -60,6 +64,15 @@ class MainActivity : AppCompatActivity() {
         })
 
 
+        binding.timeFormatSwitch.setOnToggledListener { _, isOn ->
+            if (isOn){
+                setOriginalTime(prayerTimes)
+            }else{
+                convertTimeFormat(prayerTimes)
+            }
+
+            tinyDB.putBoolean(TWELVE_TIME_FORMAT, !isOn)
+        }
         binding.settings.setOnClickListener { SettingsActivity.start(this) }
         binding.locationCard.setOnClickListener { LocationActivity.start(this) }
 
@@ -68,17 +81,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setData(prayerTimes: PrayerTimes) {
+        this.prayerTimes = prayerTimes
         val city = tinyDB.getString(CITY)
         val state = tinyDB.getString(STATE)
         val country = tinyDB.getString(COUNTRY)
 
         binding.city.text = if (city.isNullOrEmpty()) state else city
         binding.stateCountry.text = "$state, $country"
-        binding.fajr.text = prayerTimes.fajr
-        binding.dhuhr.text = prayerTimes.dhuhr
-        binding.asr.text = prayerTimes.asr
-        binding.maghrib.text = prayerTimes.maghrib
-        binding.isha.text = prayerTimes.isha
+
+
+        binding.timeFormatSwitch.isOn = !tinyDB.getBoolean(TWELVE_TIME_FORMAT)
+        if (tinyDB.getBoolean(TWELVE_TIME_FORMAT)){
+            convertTimeFormat(prayerTimes)
+        }else{
+            setOriginalTime(prayerTimes)
+        }
 
 
         setTimeDifference(prayerTimes)
@@ -92,7 +109,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTimeDifference(prayerTimes: PrayerTimes) {
-        var timeDifference: Long = 0;
+        var timeDifference: Long = 0
+        var nextPrayer = ""
 
         val now = Calendar.getInstance().timeInMillis
 
@@ -106,19 +124,22 @@ class MainActivity : AppCompatActivity() {
                 calculateTimeDifference(prayerTimes.isha, now)
             )
 
+            val prayersList = listOf(getString(R.string.fajr), getString(R.string.dhuhr),
+                getString(R.string.asr), getString(R.string.maghrib), getString(R.string.isha))
+
 
             for (dif in differenceList) {
                 if (dif > 0) {
-                    if (timeDifference > 0 && dif < timeDifference) {
+                    if (timeDifference <= 0 || (timeDifference > 0 && dif < timeDifference)) {
                         timeDifference = dif
-                    } else if (timeDifference <= 0) {
-                        timeDifference = dif
+                        nextPrayer = prayersList[differenceList.indexOf(dif)]
                     }
 
                 }
             }
         } else {
             timeDifference = calculateTimeDifference(prayerTimes.fajr, now, true)
+            nextPrayer = getString(R.string.fajr)
         }
 
 
@@ -126,6 +147,9 @@ class MainActivity : AppCompatActivity() {
         val hours = (timeDifference / (1000 * 60 * 60) % 24)
 
         binding.remainingTime.text = "${hours}h ${minutes}m"
+        binding.remainingText.text = getString(R.string.remaining_for_the_next_prayer, nextPrayer)
+
+
     }
 
     private fun calculateTimeDifference(time: String, now: Long, forNextDay: Boolean = false) : Long {
@@ -137,6 +161,31 @@ class MainActivity : AppCompatActivity() {
 
         val difference = calendar.timeInMillis - now
         return if (difference < 0 ) 0 else difference
+    }
+
+
+    private fun setOriginalTime(prayerTimes: PrayerTimes){
+        binding.fajr.text = prayerTimes.fajr
+        binding.dhuhr.text = prayerTimes.dhuhr
+        binding.asr.text = prayerTimes.asr
+        binding.maghrib.text = prayerTimes.maghrib
+        binding.isha.text = prayerTimes.isha
+    }
+
+    private fun convertTimeFormat(prayerTimes: PrayerTimes){
+        binding.fajr.text = timeFormatConverter(prayerTimes.fajr)
+        binding.dhuhr.text = timeFormatConverter(prayerTimes.dhuhr)
+        binding.asr.text = timeFormatConverter(prayerTimes.asr)
+        binding.maghrib.text = timeFormatConverter(prayerTimes.maghrib)
+        binding.isha.text = timeFormatConverter(prayerTimes.isha)
+    }
+
+    private fun timeFormatConverter(time:String) : String{
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val date = dateFormat.parse(time)
+
+        val newFormat = SimpleDateFormat("hh:mm aaa", Locale.getDefault())
+        return newFormat.format(date!!)
     }
 
 

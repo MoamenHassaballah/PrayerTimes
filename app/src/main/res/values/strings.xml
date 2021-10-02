@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Prayer Times</string>
     <string name="prayer_times">Prayer Times</string>
-    <string name="remaining_for_the_next_prayer">remaining for the next prayer</string>
+    <string name="remaining_for_the_next_prayer">remaining time until <b>%s</b></string>
     <string name="_24h_format">24h Format</string>
     <string name="fajr">Fajr</string>
     <string name="dhuhr">Dhuhr</string>
@@ -23,4 +23,5 @@
     <string name="couldnt_get_location">Couldn\'t get your location, Please select your location manually</string>
     <string name="location_updated">Location updated successfully</string>
     <string name="error_occured">An error occured</string>
+    <string name="isha">Isha</string>
 </resources>

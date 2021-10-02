@@ -267,6 +267,11 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                                 android.R.layout.simple_dropdown_item_1line,
                                 dataList[1]
                             )
+
+                            if (dataList[1].isEmpty()){
+                                tinyDb.putString(CITY, "")
+                                tinyDb.putInt(CITY_ID, 0)
+                            }
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -284,7 +289,9 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                             p3: Long
                         ) {
                             Log.d(TAG, "onItemSelectedCity: $p2")
-                            selectedCity = selectedState.cities[p2]
+                            if (selectedState.cities.isNotEmpty()){
+                                selectedCity = selectedState.cities[p2]
+                            }
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?) {
