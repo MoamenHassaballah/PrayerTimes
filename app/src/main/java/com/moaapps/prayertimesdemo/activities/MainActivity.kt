@@ -4,24 +4,26 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.ViewModelProvider
 import com.androidnetworking.AndroidNetworking
 import com.google.android.material.snackbar.Snackbar
 import com.moaapps.prayertimesdemo.R
+import com.moaapps.prayertimesdemo.background_tasks.GetLocation
+import com.moaapps.prayertimesdemo.background_tasks.GetPrayerTimes
 import com.moaapps.prayertimesdemo.databinding.ActivityMainBinding
 import com.moaapps.prayertimesdemo.modules.PrayerTimes
+import com.moaapps.prayertimesdemo.utils.*
 import com.moaapps.prayertimesdemo.utils.Constants.CITY
 import com.moaapps.prayertimesdemo.utils.Constants.COUNTRY
 import com.moaapps.prayertimesdemo.utils.Constants.STATE
 import com.moaapps.prayertimesdemo.utils.Constants.TWELVE_TIME_FORMAT
-import com.moaapps.prayertimesdemo.utils.LoadingDialog
-import com.moaapps.prayertimesdemo.utils.Status.*
-import com.moaapps.prayertimesdemo.utils.TinyDB
-import com.moaapps.prayertimesdemo.viewmodel.PrayerTimesViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     companion object{
         @JvmStatic
@@ -31,12 +33,10 @@ class MainActivity : AppCompatActivity() {
             context.startActivity(starter)
         }
 
-        private const val TAG = "MainActivity"
     }
 
     private lateinit var binding:ActivityMainBinding
     private lateinit var tinyDB: TinyDB
-    private lateinit var prayerTimesViewModel: PrayerTimesViewModel
     private lateinit var loadingDialog: LoadingDialog
     private var countRemainingTime:Boolean = true
     private lateinit var prayerTimes: PrayerTimes
@@ -44,24 +44,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        AndroidNetworking.initialize(applicationContext);
-        prayerTimesViewModel = ViewModelProvider(this)[PrayerTimesViewModel::class.java]
+        AndroidNetworking.initialize(applicationContext)
         tinyDB = TinyDB(this)
         loadingDialog = LoadingDialog(this, 0)
-
-        prayerTimesViewModel.prayerTimes.observe(this, {
-            when (it.status) {
-                LOADING -> loadingDialog.show()
-                SUCCESSFUL -> {
-                    loadingDialog.dismiss()
-                    setData(it.data!!)
-                }
-                FAIL -> {
-                    loadingDialog.dismiss()
-                    Snackbar.make(binding.root, it.message, Snackbar.LENGTH_SHORT).show()
-                }
-            }
-        })
 
 
         binding.timeFormatSwitch.setOnToggledListener { _, isOn ->
@@ -77,7 +62,43 @@ class MainActivity : AppCompatActivity() {
         binding.locationCard.setOnClickListener { LocationActivity.start(this) }
 
 
-        prayerTimesViewModel.getPrayerTimes(this)
+        val getLocation = GetLocation(this)
+        val getPrayerTimes = GetPrayerTimes(this)
+        CoroutineScope(Dispatchers.IO).launch {
+            runOnUiThread { loadingDialog.show() }
+
+            var lat = 0.0
+            var lng = 0.0
+            if (tinyDB.getString(Constants.LOCATION_METHOD) == Constants.LOCATION_METHOD_AUTO){
+                val location = getLocation.getUserLocation()
+                if (location != null){
+                    lat = location.latitude
+                    lng = location.longitude
+                }else{
+                    runOnUiThread { Snackbar.make(binding.root, getLocation.getError(), Snackbar.LENGTH_SHORT).show()}
+                }
+
+            }else {
+                lat = tinyDB.getDouble(Constants.LATITUDE)
+                lng = tinyDB.getDouble(Constants.LONGITUDE)
+            }
+
+            if (lat != 0.0 && lng != 0.0){
+                val prayerTimes = getPrayerTimes.getPrayerTimes(lat, lng)
+                runOnUiThread {
+                    if (prayerTimes != null){
+                        loadingDialog.dismiss()
+                        setData(prayerTimes)
+                    }else{
+                        loadingDialog.dismiss()
+                        Snackbar.make(binding.root, getPrayerTimes.getError(), Snackbar.LENGTH_SHORT).show()
+                    }
+
+                }
+            }
+
+
+        }
     }
 
     private fun setData(prayerTimes: PrayerTimes) {

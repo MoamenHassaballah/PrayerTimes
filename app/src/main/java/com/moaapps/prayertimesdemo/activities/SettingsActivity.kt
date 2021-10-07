@@ -5,7 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.moaapps.prayertimesdemo.databinding.ActivitySettingsBinding
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class SettingsActivity : AppCompatActivity() {
 
     companion object{

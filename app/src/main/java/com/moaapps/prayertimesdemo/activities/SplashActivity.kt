@@ -7,7 +7,9 @@ import android.os.Looper
 import com.moaapps.prayertimesdemo.R
 import com.moaapps.prayertimesdemo.utils.Constants.LATITUDE
 import com.moaapps.prayertimesdemo.utils.TinyDB
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

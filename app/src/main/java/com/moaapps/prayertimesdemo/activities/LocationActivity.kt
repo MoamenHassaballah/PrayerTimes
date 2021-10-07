@@ -10,10 +10,10 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.moaapps.prayertimesdemo.R
 import com.moaapps.prayertimesdemo.adapters.CountriesSpinnerAdapter
+import com.moaapps.prayertimesdemo.background_tasks.GetLocation
 import com.moaapps.prayertimesdemo.databinding.ActivityLocationBinding
 import com.moaapps.prayertimesdemo.modules.City
 import com.moaapps.prayertimesdemo.modules.Country
@@ -30,9 +30,13 @@ import com.moaapps.prayertimesdemo.utils.Constants.LOCATION_METHOD_MANUAL
 import com.moaapps.prayertimesdemo.utils.Constants.LONGITUDE
 import com.moaapps.prayertimesdemo.utils.Constants.STATE
 import com.moaapps.prayertimesdemo.utils.Constants.STATE_ID
-import com.moaapps.prayertimesdemo.viewmodel.LocationViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.EasyPermissions
 
+@ExperimentalCoroutinesApi
 class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     companion object {
         @JvmStatic
@@ -45,7 +49,6 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
     }
 
     private lateinit var binding: ActivityLocationBinding
-    private lateinit var locationViewModel: LocationViewModel
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var tinyDb: TinyDB
     private lateinit var localLocationsHandler: LocalLocationsHandler
@@ -61,7 +64,6 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         loadingDialog = LoadingDialog(this, 1)
         tinyDb = TinyDB(this)
 
-        locationViewModel = ViewModelProvider(this)[LocationViewModel::class.java]
         binding.setManually.setOnToggledListener { _, isOn ->
             if (isOn) {
                 loadManualLocationData()
@@ -96,7 +98,7 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                     )
                     binding.autoLocate.isOn = false
                 } else {
-                    locationViewModel.getUserLocation(this)
+                    getUserLocation()
                 }
 
             } else {
@@ -107,38 +109,6 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
             }
         }
 
-
-
-
-
-        locationViewModel.location.observe(this, {
-            when (it.status) {
-                Status.LOADING -> loadingDialog.show()
-                Status.FAIL -> {
-                    loadingDialog.dismiss()
-                    binding.setManually.isOn = true
-                    binding.manualLocationLayout.visibility = View.VISIBLE
-                    binding.autoLocate.isOn = false
-                    Snackbar.make(
-                        binding.root,
-                        R.string.couldnt_get_location,
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-                Status.SUCCESSFUL -> {
-                    loadingDialog.dismiss()
-                    binding.setManually.isOn = false
-                    binding.manualLocationLayout.visibility = View.GONE
-
-                    tinyDb.putString(LOCATION_METHOD, LOCATION_METHOD_AUTO)
-                    tinyDb.putDouble(LATITUDE, it.data?.latitude!!)
-                    tinyDb.putDouble(LONGITUDE, it.data.longitude)
-
-                    Toast.makeText(this, R.string.location_updated, Toast.LENGTH_SHORT).show()
-                    MainActivity.start(this)
-                }
-            }
-        })
 
 
         if (tinyDb.getString(LOCATION_METHOD) == LOCATION_METHOD_AUTO) {
@@ -165,7 +135,7 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         if (requestCode == 112) {
-            locationViewModel.getUserLocation(this)
+            getUserLocation()
         }
 
     }
@@ -334,6 +304,42 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         }.start()
 
 
+    }
+
+
+    private fun getUserLocation(){
+        val getLocation = GetLocation(this)
+        CoroutineScope(Dispatchers.IO).launch {
+            runOnUiThread { loadingDialog.show() }
+
+            val location = getLocation.getUserLocation()
+
+
+                runOnUiThread {
+                    if (location != null) {
+                        loadingDialog.dismiss()
+                        binding.setManually.isOn = false
+                        binding.manualLocationLayout.visibility = View.GONE
+
+                        tinyDb.putString(LOCATION_METHOD, LOCATION_METHOD_AUTO)
+                        tinyDb.putDouble(LATITUDE, location.latitude)
+                        tinyDb.putDouble(LONGITUDE, location.longitude)
+                        Toast.makeText(this@LocationActivity, R.string.location_updated, Toast.LENGTH_SHORT).show()
+                        MainActivity.start(this@LocationActivity)
+                    }else{
+                        loadingDialog.dismiss()
+                        binding.setManually.isOn = true
+                        binding.manualLocationLayout.visibility = View.VISIBLE
+                        binding.autoLocate.isOn = false
+                        Snackbar.make(
+                            binding.root,
+                            R.string.couldnt_get_location,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+        }
     }
 
 }

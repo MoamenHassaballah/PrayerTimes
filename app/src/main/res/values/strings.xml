@@ -24,4 +24,8 @@
     <string name="location_updated">Location updated successfully</string>
     <string name="error_occured">An error occured</string>
     <string name="isha">Isha</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">Prayer Times Widget</string>
+    <string name="click_to_load_data">Click to load data</string>
 </resources>
