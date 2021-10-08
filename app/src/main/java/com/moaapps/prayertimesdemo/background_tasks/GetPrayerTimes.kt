@@ -1,8 +1,12 @@
 package com.moaapps.prayertimesdemo.background_tasks
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.AlarmManagerCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.androidnetworking.AndroidNetworking
@@ -16,6 +20,7 @@ import com.moaapps.prayertimesdemo.utils.Constants
 import com.moaapps.prayertimesdemo.utils.TinyDB
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.json.JSONObject
+import java.util.*
 import java.util.concurrent.CancellationException
 import kotlin.coroutines.resumeWithException
 
@@ -46,7 +51,7 @@ class GetPrayerTimes(val context: Context) {
             timings.getString("Dhuhr"), timings.getString("Asr"),
             timings.getString("Maghrib"), timings.getString("Isha"))
             tinyDb.putString(Constants.TIMINGS, Gson().toJson(prayer))
-
+            PrayerReminder(context, prayer).setAlarms()
             return prayer
         }else{
             val anError = response.error
@@ -59,6 +64,8 @@ class GetPrayerTimes(val context: Context) {
             return null
         }
     }
+
+
 
 
 

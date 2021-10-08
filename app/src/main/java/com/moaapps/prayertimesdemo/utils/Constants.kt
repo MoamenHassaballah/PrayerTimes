@@ -14,4 +14,5 @@ object Constants {
     const val STATE_ID = "state_id"
     const val TIMINGS = "timings"
     const val TWELVE_TIME_FORMAT = "twelve_time_format"
+    const val PRAYER_REMINDER = "prayer_reminder"
 }

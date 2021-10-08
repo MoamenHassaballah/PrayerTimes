@@ -28,4 +28,7 @@
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">Prayer Times Widget</string>
     <string name="click_to_load_data">Click to load data</string>
+    <string name="notification_channel">Alarm Reminder</string>
+    <string name="prayer_notification_title">%s Prayer</string>
+    <string name="prayer_notification_message">%s prayer is now, Hurry Up!!</string>
 </resources>

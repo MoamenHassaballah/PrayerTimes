@@ -69,7 +69,7 @@ internal fun updateAppWidget(
 
     val views = RemoteViews(context.packageName, R.layout.prayer_widget)
     val appIntent = Intent(context, SplashActivity::class.java)
-    val intent = PendingIntent.getActivity(context, 11, appIntent, PendingIntent.FLAG_IMMUTABLE)
+    val intent = PendingIntent.getActivity(context, 11, appIntent, 0)
     views.setOnClickPendingIntent(R.id.container, intent)
     val tinyDb = TinyDB(context)
     val prayerString = tinyDb.getString(TIMINGS)
@@ -134,6 +134,7 @@ private fun setTimeDifference(context:Context, prayerTimes: PrayerTimes, views: 
     }
 
 
+    resetColor(context, views)
     when(nextPrayer){
         0 -> {
             views.setTextColor(R.id.fajr, ContextCompat.getColor(context, R.color.light_blue_900))
@@ -162,6 +163,19 @@ private fun setTimeDifference(context:Context, prayerTimes: PrayerTimes, views: 
     }
 
 
+}
+
+private fun resetColor(context: Context, views: RemoteViews){
+    views.setTextColor(R.id.fajr, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.fajr_text, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.dhuhr, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.dhuhr_text, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.asr, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.asr_text, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.maghrib, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.maghrib_text, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.isha, ContextCompat.getColor(context, R.color.black))
+    views.setTextColor(R.id.isha_text, ContextCompat.getColor(context, R.color.black))
 }
 
 private fun calculateTimeDifference(time: String, now: Long, forNextDay: Boolean = false) : Long {
