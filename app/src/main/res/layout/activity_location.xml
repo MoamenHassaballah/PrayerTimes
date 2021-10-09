@@ -42,15 +42,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Set Manually"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_20ssp"
-                    android:fontFamily="@font/roboto_medium"
+                    android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_centerVertical="true"/>
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/set_manually"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_20ssp" />
 
                 <com.github.angads25.toggle.widget.LabeledSwitch
                     android:id="@+id/set_manually"

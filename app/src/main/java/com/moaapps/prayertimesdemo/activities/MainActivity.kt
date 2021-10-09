@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity() {
         val minutes = (timeDifference / (1000 * 60) % 60)
         val hours = (timeDifference / (1000 * 60 * 60) % 24)
 
-        binding.remainingTime.text = "${hours}h ${minutes}m"
+        binding.remainingTime.text = getString(R.string.remaining_time_format, hours.toString(), minutes.toString())
         binding.remainingText.text = getString(R.string.remaining_for_the_next_prayer, nextPrayer)
 
 

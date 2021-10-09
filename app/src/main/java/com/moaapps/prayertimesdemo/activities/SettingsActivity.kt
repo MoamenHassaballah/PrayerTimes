@@ -6,17 +6,22 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.moaapps.prayertimesdemo.R
 import com.moaapps.prayertimesdemo.background_tasks.PrayerReminder
 import com.moaapps.prayertimesdemo.databinding.ActivitySettingsBinding
 import com.moaapps.prayertimesdemo.modules.PrayerTimes
 import com.moaapps.prayertimesdemo.utils.Constants
 import com.moaapps.prayertimesdemo.utils.Constants.APP_URL
+import com.moaapps.prayertimesdemo.utils.Constants.LANGUAGE
 import com.moaapps.prayertimesdemo.utils.Constants.PRAYER_REMINDER
 import com.moaapps.prayertimesdemo.utils.Constants.PRIVACY_URL
+import com.moaapps.prayertimesdemo.utils.SetAppLocale.setAppLocale
 import com.moaapps.prayertimesdemo.utils.TinyDB
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.*
 
 @ExperimentalCoroutinesApi
 class SettingsActivity : AppCompatActivity() {
@@ -79,5 +84,43 @@ class SettingsActivity : AppCompatActivity() {
         binding.about.setOnClickListener { AboutActivity.start(this) }
 
 
+        binding.englishContainer.setOnClickListener {
+            setEnglishLanguage()
+            tinyDb.putString(LANGUAGE, "en")
+            setAppLocale(this)
+            MainActivity.start(this)
+        }
+
+
+        binding.arabicContainer.setOnClickListener {
+            setArabicLanguage()
+            tinyDb.putString(LANGUAGE, "ar")
+            setAppLocale(this)
+            MainActivity.start(this)
+        }
+
+
+        val lang = tinyDb.getString(LANGUAGE)
+        if (lang == "ar"){
+            setArabicLanguage()
+        }else{
+            setEnglishLanguage()
+            tinyDb.putString(LANGUAGE, "en")
+        }
+    }
+
+
+    private fun setEnglishLanguage(){
+        binding.arabicContainer.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        binding.arabic.setTextColor(ContextCompat.getColor(this, R.color.black))
+        binding.englishContainer.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+        binding.english.setTextColor(ContextCompat.getColor(this, R.color.white))
+    }
+
+    private fun setArabicLanguage(){
+        binding.arabicContainer.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+        binding.arabic.setTextColor(ContextCompat.getColor(this, R.color.white))
+        binding.englishContainer.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        binding.english.setTextColor(ContextCompat.getColor(this, R.color.black))
     }
 }

@@ -24,14 +24,18 @@
     <string name="location_updated">Location updated successfully</string>
     <string name="error_occured">An error occured</string>
     <string name="isha">Isha</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">Prayer Times Widget</string>
+    <string name="appwidget_text" translatable="false">EXAMPLE</string>
+    <string name="add_widget" translatable="false">Add widget</string>
+    <string name="app_widget_description" translatable="false">Prayer Times Widget</string>
     <string name="click_to_load_data">Click to load data</string>
-    <string name="notification_channel">Alarm Reminder</string>
+    <string name="notification_channel" translatable="false">Alarm Reminder</string>
     <string name="prayer_notification_title">%s Prayer</string>
     <string name="prayer_notification_message">%s prayer is now, Hurry Up!!</string>
     <string name="about_app">About the App</string>
     <string name="app_description">An app that shows muslim prayer times based on user selected location or auto defined user location.</string>
-    <string name="version">V %s</string>
+    <string name="version" translatable="false">V %s</string>
+    <string name="english" translatable="false">English</string>
+    <string name="arabic" translatable="false">العربية</string>
+    <string name="set_manually">Set Manually</string>
+    <string name="remaining_time_format">%1$sh %2$sm</string>
 </resources>

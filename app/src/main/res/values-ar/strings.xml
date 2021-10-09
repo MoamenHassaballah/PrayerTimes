@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Prayer Times</string>
+    <string name="prayer_times">مواقيت الصلاة</string>
+    <string name="remaining_for_the_next_prayer">باقية حتى صلاة <b>%s</b></string>
+    <string name="_24h_format">صيغة 24 ساعة</string>
+    <string name="fajr">الفجر</string>
+    <string name="dhuhr">الظهر</string>
+    <string name="asr">العصر</string>
+    <string name="maghrib">المغرب</string>
+    <string name="settings">الإعدادات</string>
+    <string name="prayers_reminder">تذكير الصلاة</string>
+    <string name="set_location">تحديد الموقع</string>
+    <string name="about">حول</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="rate_the_app">تقييم التطبيق</string>
+    <string name="share_the_app">مشاركة التطبيق</string>
+    <string name="location">الموقع</string>
+    <string name="auto_locate_me">تحديد الموقع تلقائيا</string>
+    <string name="select_where_you_are">اختر موقعك</string>
+    <string name="save_location">خفظ الموقع</string>
+    <string name="select_location_method">يجب ان يكون لديك وسيلة تحديد موقع فعاله</string>
+    <string name="location_rational">نحتاج الصلاحيات لتحديد موقعك</string>
+    <string name="couldnt_get_location">لم نستطع تحديد موقعك الرجاء تحديد موقعك يدوياً</string>
+    <string name="location_updated">تم تحديث الموقع بنجاح</string>
+    <string name="error_occured">حدث خطأ ما</string>
+    <string name="isha">العشاء</string>
+    <string name="click_to_load_data">اضغط لتحميل البيانات</string>
+    <string name="prayer_notification_title">%s صلاة</string>
+    <string name="prayer_notification_message">حان الآن موعد صلاة %s, أسرع !!</string>
+    <string name="about_app">حول التطبيق</string>
+    <string name="app_description">التطبيق يظهر مواقيت الصلاة بناءاً على الموقع اللذي يختاره المستخدم او الموقع المحدد تلقائياً</string>
+    <string name="set_manually">تحديد يدوياً</string>
+    <string name="remaining_time_format">%1$sس %2$sد</string>
+</resources>

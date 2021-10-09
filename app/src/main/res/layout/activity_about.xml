@@ -49,7 +49,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="@string/app_name"
+                    android:text="@string/prayer_times"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_20ssp" />
             </RelativeLayout>
