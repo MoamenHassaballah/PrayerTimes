@@ -19,6 +19,7 @@ class PrayerReminder(val context: Context, val prayerTimes: PrayerTimes) {
         val isReminderEnabled = TinyDB(context).getBoolean(PRAYER_REMINDER)
         if (isReminderEnabled){
             Log.d(TAG, "setReminder: ")
+            cancelAlarms(true)
             createAlarm(1, prayerTimes.fajr, context.getString(R.string.fajr))
             createAlarm(2, prayerTimes.dhuhr, context.getString(R.string.dhuhr))
             createAlarm(3, prayerTimes.asr, context.getString(R.string.asr))
@@ -55,9 +56,9 @@ class PrayerReminder(val context: Context, val prayerTimes: PrayerTimes) {
     }
 
 
-    fun cancelAlarms(){
+    fun cancelAlarms(fromSet: Boolean = false){
         val isReminderEnabled = TinyDB(context).getBoolean(PRAYER_REMINDER)
-        if (!isReminderEnabled){
+        if (!isReminderEnabled || fromSet){
             Log.d(TAG, "cancelReminder: ")
             cancelAlarm(1, context.getString(R.string.fajr))
             cancelAlarm(2, context.getString(R.string.dhuhr))
