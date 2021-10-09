@@ -14,7 +14,6 @@ class RefreshWorker(private val appContext: Context, workerParams: WorkerParamet
     }
 
     override fun doWork(): Result {
-        Log.d(TAG, "doWork: ")
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -34,12 +33,10 @@ class RefreshWorker(private val appContext: Context, workerParams: WorkerParamet
 
         runBlocking {
             val location = getLocation.getUserLocation()
-            Log.d(TAG, "doWork: loc: $location")
 
             result = if (location != null) {
                 val prayerTimes =
                     getPrayerTimes.getPrayerTimes(location.latitude, location.longitude)
-                Log.d(TAG, "doWork: prayer times: $prayerTimes")
                 if (prayerTimes != null) Result.success() else Result.retry()
             } else {
                 Result.retry()

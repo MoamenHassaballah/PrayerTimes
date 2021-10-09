@@ -101,6 +101,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/share_the_app"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
@@ -128,6 +129,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/rate_the_app"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
@@ -155,6 +157,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/privacy_policy"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
@@ -181,6 +184,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/about"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"

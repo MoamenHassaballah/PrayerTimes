@@ -1,5 +1,7 @@
 package com.moaapps.prayertimesdemo.utils
 
+import com.moaapps.prayertimesdemo.BuildConfig
+
 object Constants {
     const val LOCATION_METHOD = "location_method"
     const val LOCATION_METHOD_AUTO = "location_method_automatic"
@@ -15,4 +17,6 @@ object Constants {
     const val TIMINGS = "timings"
     const val TWELVE_TIME_FORMAT = "twelve_time_format"
     const val PRAYER_REMINDER = "prayer_reminder"
+    const val APP_URL = "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+    const val PRIVACY_URL = "https://www.google.com/"
 }

@@ -2,6 +2,7 @@ package com.moaapps.prayertimesdemo.activities
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +12,9 @@ import com.moaapps.prayertimesdemo.background_tasks.PrayerReminder
 import com.moaapps.prayertimesdemo.databinding.ActivitySettingsBinding
 import com.moaapps.prayertimesdemo.modules.PrayerTimes
 import com.moaapps.prayertimesdemo.utils.Constants
+import com.moaapps.prayertimesdemo.utils.Constants.APP_URL
 import com.moaapps.prayertimesdemo.utils.Constants.PRAYER_REMINDER
+import com.moaapps.prayertimesdemo.utils.Constants.PRIVACY_URL
 import com.moaapps.prayertimesdemo.utils.TinyDB
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -56,5 +59,25 @@ class SettingsActivity : AppCompatActivity() {
         }else{
             prayerReminder.cancelAlarms()
         }
+
+
+        binding.shareTheApp.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check this prayer times app:\n$APP_URL")
+            shareIntent.type = "text/plain"
+            startActivity(shareIntent)
+        }
+
+        binding.rateTheApp.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(APP_URL)))
+        }
+
+        binding.privacyPolicy.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_URL)))
+        }
+
+        binding.about.setOnClickListener { AboutActivity.start(this) }
+
+
     }
 }

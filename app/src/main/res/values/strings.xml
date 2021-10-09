@@ -31,4 +31,7 @@
     <string name="notification_channel">Alarm Reminder</string>
     <string name="prayer_notification_title">%s Prayer</string>
     <string name="prayer_notification_message">%s prayer is now, Hurry Up!!</string>
+    <string name="about_app">About the App</string>
+    <string name="app_description">An app that shows muslim prayer times based on user selected location or auto defined user location.</string>
+    <string name="version">V %s</string>
 </resources>
