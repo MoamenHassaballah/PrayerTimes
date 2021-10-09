@@ -68,16 +68,9 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
             if (isOn) {
                 loadManualLocationData()
                 binding.autoLocate.isOn = false
+                binding.autoLocate.isEnabled = true
+                binding.setManually.isEnabled = false
                 binding.manualLocationLayout.visibility = View.VISIBLE
-            } else {
-                if (!binding.autoLocate.isOn) {
-                    Snackbar.make(
-                        binding.root,
-                        R.string.select_location_method,
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                    binding.setManually.isOn = true
-                }
             }
         }
 
@@ -89,6 +82,7 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                         Manifest.permission.ACCESS_COARSE_LOCATION
                     )
                 ) {
+                    binding.autoLocate.isOn = false
                     EasyPermissions.requestPermissions(
                         this,
                         getString(R.string.location_rational),
@@ -96,16 +90,12 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION
                     )
-                    binding.autoLocate.isOn = false
                 } else {
+                    binding.autoLocate.isEnabled = false
+                    binding.setManually.isEnabled = true
                     getUserLocation()
                 }
 
-            } else {
-                if (!binding.setManually.isOn) {
-                    Toast.makeText(this, R.string.select_location_method, Toast.LENGTH_SHORT).show()
-                    binding.autoLocate.isOn = true
-                }
             }
         }
 
@@ -113,11 +103,13 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
 
         if (tinyDb.getString(LOCATION_METHOD) == LOCATION_METHOD_AUTO) {
             binding.autoLocate.isOn = true
+            binding.autoLocate.isEnabled = false
             binding.setManually.isOn = false
             binding.manualLocationLayout.visibility = View.GONE
         } else {
             loadManualLocationData()
             binding.setManually.isOn = true
+            binding.setManually.isEnabled = false
             binding.manualLocationLayout.visibility = View.VISIBLE
             binding.autoLocate.isOn = false
         }
@@ -130,10 +122,12 @@ class LocationActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d(TAG, "onRequestPermissionsResult: ")
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        Log.d(TAG, "onPermissionsGranted: ")
         if (requestCode == 112) {
             getUserLocation()
         }
