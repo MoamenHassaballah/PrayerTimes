@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.work.*
 import com.androidnetworking.AndroidNetworking
 import com.google.android.material.snackbar.Snackbar
 import com.moaapps.prayertimesdemo.R
 import com.moaapps.prayertimesdemo.background_tasks.GetLocation
 import com.moaapps.prayertimesdemo.background_tasks.GetPrayerTimes
+import com.moaapps.prayertimesdemo.background_tasks.RefreshWorker
 import com.moaapps.prayertimesdemo.databinding.ActivityMainBinding
 import com.moaapps.prayertimesdemo.modules.PrayerTimes
 import com.moaapps.prayertimesdemo.utils.*
@@ -22,6 +24,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -102,6 +105,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setData(prayerTimes: PrayerTimes) {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val refreshRequest =
+            PeriodicWorkRequestBuilder<RefreshWorker>(1, TimeUnit.DAYS)
+                .setConstraints(constraints)
+                .build()
+
+        val workManager = WorkManager.getInstance(this)
+        workManager.enqueueUniquePeriodicWork("refresh", ExistingPeriodicWorkPolicy.KEEP, refreshRequest)
+
         this.prayerTimes = prayerTimes
         val city = tinyDB.getString(CITY)
         val state = tinyDB.getString(STATE)
@@ -112,19 +126,19 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.timeFormatSwitch.isOn = !tinyDB.getBoolean(TWELVE_TIME_FORMAT)
-        if (tinyDB.getBoolean(TWELVE_TIME_FORMAT)){
+        if (tinyDB.getBoolean(TWELVE_TIME_FORMAT)) {
             convertTimeFormat(prayerTimes)
-        }else{
+        } else {
             setOriginalTime(prayerTimes)
         }
 
 
         setTimeDifference(prayerTimes)
 
-        Thread{
-            while (countRemainingTime){
+        Thread {
+            while (countRemainingTime) {
                 Thread.sleep(60000)
-                runOnUiThread {setTimeDifference(prayerTimes)}
+                runOnUiThread { setTimeDifference(prayerTimes) }
             }
         }.start()
     }

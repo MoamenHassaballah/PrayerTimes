@@ -11,7 +11,12 @@ import android.widget.Toast
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.moaapps.prayertimesdemo.R
+import com.moaapps.prayertimesdemo.modules.PrayerTimes
+import com.moaapps.prayertimesdemo.utils.Constants
+import com.moaapps.prayertimesdemo.utils.TinyDB
 import kotlin.random.Random
 
 class AlarmReceiver: BroadcastReceiver() {
@@ -22,6 +27,14 @@ class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.d(TAG, "onReceive: ALARM!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         notifyAlarm(context!!, intent?.getStringExtra("title")!!, intent.getStringExtra("message")!!)
+
+        val tinyDb = TinyDB(context)
+        val prayerString = tinyDb.getString(Constants.TIMINGS)
+        if (!prayerString.isNullOrEmpty()){
+            val type = object : TypeToken<PrayerTimes>() {}.type!!
+            val prayerTimes = Gson().fromJson<PrayerTimes>(prayerString, type)
+            PrayerReminder(context, prayerTimes).setAlarms()
+        }
     }
 
 
