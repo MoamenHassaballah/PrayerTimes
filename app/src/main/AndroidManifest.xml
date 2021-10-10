@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PrayerTimes"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true">
         <activity
             android:name=".activities.AboutActivity"
             android:exported="true" />
