@@ -77,9 +77,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="2h 30m"
+                        tools:text="2h 30m"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_40ssp"
+                        android:textSize="@dimen/_30ssp"
                         android:fontFamily="@font/roboto_bold"
                         android:layout_marginBottom="@dimen/_5sdp"/>
 
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/remaining_for_the_next_prayer"
+                        tools:text="@string/remaining_for_the_next_prayer"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_20ssp"
                         android:fontFamily="@font/roboto"/>
@@ -109,8 +109,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_gravity="center_vertical"
                         android:layout_margin="@dimen/_10sdp"
                         android:src="@drawable/ic_location"/>
@@ -124,9 +124,9 @@
                             android:id="@+id/city"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tahreer"
+                            tools:text="Tahreer"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp"
+                            android:textSize="@dimen/_18ssp"
                             android:fontFamily="@font/roboto_medium"
                             android:layout_marginBottom="@dimen/_5sdp"/>
 
@@ -134,7 +134,7 @@
                             android:id="@+id/state_country"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cairo, Egypt"
+                            tools:text="Cairo, Egypt"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_15ssp"
                             android:fontFamily="@font/roboto"/>
@@ -149,7 +149,7 @@
                 app:cardElevation="@dimen/_30sdp"
                 app:cardCornerRadius="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_60sdp"
                 android:animateLayoutChanges="true">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -159,15 +159,16 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="@string/_24h_format"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:layout_marginBottom="@dimen/_5sdp"
-                            android:layout_centerVertical="true"/>
+                            android:textSize="@dimen/_15ssp" />
 
                         <com.github.angads25.toggle.widget.LabeledSwitch
                             android:id="@+id/time_format_switch"
@@ -191,15 +192,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="@string/fajr"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:layout_marginBottom="@dimen/_5sdp"
-                            android:layout_centerVertical="true"/>
+                            android:textSize="@dimen/_15ssp" />
 
 
                         <TextView
@@ -212,7 +214,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="04:30"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
                     </RelativeLayout>
 
@@ -236,7 +238,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="@string/dhuhr"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
 
                         <TextView
@@ -249,7 +251,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="11:55"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
                     </RelativeLayout>
 
@@ -273,7 +275,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="@string/asr"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
 
                         <TextView
@@ -286,7 +288,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="15:17"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
                     </RelativeLayout>
 
@@ -310,7 +312,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="@string/maghrib"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
 
                         <TextView
@@ -323,7 +325,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="17:46"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
                     </RelativeLayout>
 
@@ -347,7 +349,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="@string/isha"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
 
                         <TextView
@@ -360,7 +362,7 @@
                             android:fontFamily="@font/roboto_medium"
                             android:text="19:00"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_20ssp" />
+                            android:textSize="@dimen/_15ssp" />
 
                     </RelativeLayout>
 

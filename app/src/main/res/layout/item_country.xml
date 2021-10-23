@@ -19,7 +19,7 @@
         tools:text="Country Name"
         android:layout_toEndOf="@id/emoji"
         android:layout_marginTop="@dimen/_10sdp"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_15sdp"
         android:textColor="@color/black"
         android:fontFamily="@font/roboto_bold"/>
 
@@ -32,7 +32,7 @@
         android:layout_toEndOf="@id/emoji"
         android:layout_below="@id/country_name"
         android:layout_marginVertical="@dimen/_10sdp"
-        android:textSize="@dimen/_15sdp"
+        android:textSize="@dimen/_10sdp"
         android:textColor="@color/black"
         android:fontFamily="@font/roboto_medium"/>
 

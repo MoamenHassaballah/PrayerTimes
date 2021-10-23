@@ -1,5 +1,7 @@
 package com.moaapps.prayertimesdemo.activities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +10,7 @@ import androidx.work.*
 import com.androidnetworking.AndroidNetworking
 import com.google.android.material.snackbar.Snackbar
 import com.moaapps.prayertimesdemo.R
+import com.moaapps.prayertimesdemo.background_tasks.AlarmReceiver
 import com.moaapps.prayertimesdemo.background_tasks.GetLocation
 import com.moaapps.prayertimesdemo.background_tasks.GetPrayerTimes
 import com.moaapps.prayertimesdemo.background_tasks.RefreshWorker
@@ -24,6 +27,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Calendar.MINUTE
 import java.util.concurrent.TimeUnit
 
 @ExperimentalCoroutinesApi

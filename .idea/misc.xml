@@ -5,15 +5,15 @@
       <map>
         <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/drawable/ic_settings.xml" value="0.1723684210526316" />
         <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/drawable/rounded_bg.xml" value="0.14722222222222223" />
-        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/activity_about.xml" value="0.2" />
+        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/activity_about.xml" value="0.176" />
         <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/activity_location.xml" value="0.176" />
-        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/activity_main.xml" value="0.152" />
-        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/activity_settings.xml" value="0.152" />
+        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/activity_settings.xml" value="0.176" />
         <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/activity_splash.xml" value="0.136" />
-        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/item_country.xml" value="0.16799999999999998" />
+        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/item_country.xml" value="0.176" />
         <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/loading.xml" value="0.13524590163934427" />
         <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/loading_location.xml" value="0.1" />
-        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/prayer_widget.xml" value="0.264" />
+        <entry key="..\:/Android/a_start_from_June20_2021/PrayerTimes/app/src/main/res/layout/prayer_widget.xml" value="0.176" />
       </map>
     </option>
   </component>

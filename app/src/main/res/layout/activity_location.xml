@@ -13,8 +13,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_location"
             android:layout_marginTop="@dimen/_20sdp"/>
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/location"
-            android:textSize="@dimen/_35sdp"
+            android:textSize="@dimen/_25sdp"
             android:textColor="@color/black"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_40sdp"
@@ -32,7 +32,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_30sdp"
             app:cardElevation="@dimen/_30sdp"
@@ -51,7 +51,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/set_manually"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_20ssp" />
+                    android:textSize="@dimen/_15ssp" />
 
                 <com.github.angads25.toggle.widget.LabeledSwitch
                     android:id="@+id/set_manually"
@@ -128,7 +128,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_marginBottom="@dimen/_50sdp"
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/auto_locate_me"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_20ssp"
+                    android:textSize="@dimen/_15ssp"
                     android:fontFamily="@font/roboto_medium"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_centerVertical="true"/>

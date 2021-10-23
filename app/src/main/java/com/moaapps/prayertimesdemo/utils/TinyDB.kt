@@ -48,94 +48,8 @@ class TinyDB(appContext: Context) {
         return bitmapFromPath
     }
 
-    /**
-     * Saves 'theBitmap' into folder 'theFolder' with the name 'theImageName'
-     *
-     * @param theFolder    the folder path dir you want to save it to e.g "DropBox/WorkImages"
-     * @param theImageName the name you want to assign to the image file e.g "MeAtLunch.png"
-     * @param theBitmap    the image you want to save as a Bitmap
-     * @return returns the full path(file system address) of the saved image
-     */
-    fun putImage(theFolder: String?, theImageName: String?, theBitmap: Bitmap?): String? {
-        if (theFolder == null || theImageName == null || theBitmap == null) return null
-        DEFAULT_APP_IMAGEDATA_DIRECTORY = theFolder
-        val mFullPath = setupFullPath(theImageName)
-        if (mFullPath != "") {
-            savedImagePath = mFullPath
-            saveBitmap(mFullPath, theBitmap)
-        }
-        return mFullPath
-    }
 
-    /**
-     * Saves 'theBitmap' into 'fullPath'
-     *
-     * @param fullPath  full path of the image file e.g. "Images/MeAtLunch.png"
-     * @param theBitmap the image you want to save as a Bitmap
-     * @return true if image was saved, false otherwise
-     */
-    fun putImageWithFullPath(fullPath: String?, theBitmap: Bitmap?): Boolean {
-        return !(fullPath == null || theBitmap == null) && saveBitmap(fullPath, theBitmap)
-    }
 
-    /**
-     * Creates the path for the image with name 'imageName' in DEFAULT_APP.. directory
-     *
-     * @param imageName name of the image
-     * @return the full path of the image. If it failed to create directory, return empty string
-     */
-    private fun setupFullPath(imageName: String): String {
-        val mFolder =
-            File(Environment.getExternalStorageDirectory(), DEFAULT_APP_IMAGEDATA_DIRECTORY)
-        if (isExternalStorageReadable && isExternalStorageWritable && !mFolder.exists()) {
-            if (!mFolder.mkdirs()) {
-                Log.e("ERROR", "Failed to setup folder")
-                return ""
-            }
-        }
-        return mFolder.path + '/' + imageName
-    }
-
-    /**
-     * Saves the Bitmap as a PNG file at path 'fullPath'
-     *
-     * @param fullPath path of the image file
-     * @param bitmap   the image as a Bitmap
-     * @return true if it successfully saved, false otherwise
-     */
-    private fun saveBitmap(fullPath: String?, bitmap: Bitmap?): Boolean {
-        if (fullPath == null || bitmap == null) return false
-        var fileCreated = false
-        var bitmapCompressed = false
-        var streamClosed = false
-        val imageFile = File(fullPath)
-        if (imageFile.exists()) if (!imageFile.delete()) return false
-        try {
-            fileCreated = imageFile.createNewFile()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        var out: FileOutputStream? = null
-        try {
-            out = FileOutputStream(imageFile)
-            bitmapCompressed = bitmap.compress(CompressFormat.PNG, 100, out)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            bitmapCompressed = false
-        } finally {
-            if (out != null) {
-                try {
-                    out.flush()
-                    out.close()
-                    streamClosed = true
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    streamClosed = false
-                }
-            }
-        }
-        return fileCreated && bitmapCompressed && streamClosed
-    }
     // Getters
     /**
      * Get int value from SharedPreferences at 'key'. If key not found, return 0
@@ -455,15 +369,6 @@ class TinyDB(appContext: Context) {
         preferences.edit().remove(key).apply()
     }
 
-    /**
-     * Delete image file at 'path'
-     *
-     * @param path path of image file
-     * @return true if it successfully deleted, false otherwise
-     */
-    fun deleteImage(path: String?): Boolean {
-        return File(path).delete()
-    }
 
     /**
      * Clear SharedPreferences (remove everything)

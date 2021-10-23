@@ -53,6 +53,6 @@ class AlarmReceiver: BroadcastReceiver() {
             notificationManager.createNotificationChannel(notificationChannel)
         }
 
-        notificationManager.notify(Random.nextInt(), notification)
+        notificationManager.notify(0, notification)
     }
 }

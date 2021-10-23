@@ -19,14 +19,11 @@ class PrayerReminder(val context: Context, val prayerTimes: PrayerTimes) {
         val isReminderEnabled = TinyDB(context).getBoolean(PRAYER_REMINDER)
         if (isReminderEnabled){
             Log.d(TAG, "setReminder: ")
-            cancelAlarms(true)
             createAlarm(1, prayerTimes.fajr, context.getString(R.string.fajr))
             createAlarm(2, prayerTimes.dhuhr, context.getString(R.string.dhuhr))
             createAlarm(3, prayerTimes.asr, context.getString(R.string.asr))
             createAlarm(4, prayerTimes.maghrib, context.getString(R.string.maghrib))
             createAlarm(5, prayerTimes.isha, context.getString(R.string.isha))
-        }else{
-            cancelAlarms()
         }
 
     }
@@ -37,13 +34,14 @@ class PrayerReminder(val context: Context, val prayerTimes: PrayerTimes) {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, timeParts[0].toInt())
         calendar.set(Calendar.MINUTE, timeParts[1].toInt())
+        calendar.set(Calendar.SECOND, 0)
         if (calendar.timeInMillis < now){
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra("title", context.getString(R.string.prayer_notification_title, prayerName))
         intent.putExtra("message", context.getString(R.string.prayer_notification_message, prayerName))
-        val pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
@@ -51,22 +49,21 @@ class PrayerReminder(val context: Context, val prayerTimes: PrayerTimes) {
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra("title", context.getString(R.string.prayer_notification_title, prayerName))
         intent.putExtra("message", context.getString(R.string.prayer_notification_message, prayerName))
-        val pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.cancel(pendingIntent)
+
     }
 
 
     fun cancelAlarms(fromSet: Boolean = false){
         val isReminderEnabled = TinyDB(context).getBoolean(PRAYER_REMINDER)
-        if (!isReminderEnabled || fromSet){
+        if (!isReminderEnabled){
             Log.d(TAG, "cancelReminder: ")
             cancelAlarm(1, context.getString(R.string.fajr))
             cancelAlarm(2, context.getString(R.string.dhuhr))
             cancelAlarm(3, context.getString(R.string.asr))
             cancelAlarm(4, context.getString(R.string.maghrib))
             cancelAlarm(5, context.getString(R.string.isha))
-        }else{
-            setAlarms()
         }
     }
 

@@ -19,7 +19,7 @@
         android:theme="@style/Theme.PrayerTimes"
         android:usesCleartextTraffic="true"
         tools:targetApi="m"
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
         android:largeHeap="true">
         <activity
             android:name=".activities.AboutActivity"
