@@ -69,7 +69,7 @@ internal fun updateAppWidget(
 
     val views = RemoteViews(context.packageName, R.layout.prayer_widget)
     val appIntent = Intent(context, SplashActivity::class.java)
-    val intent = PendingIntent.getActivity(context, 11, appIntent, 0)
+    val intent = PendingIntent.getActivity(context, 11, appIntent, PendingIntent.FLAG_IMMUTABLE or 0)
     views.setOnClickPendingIntent(R.id.container, intent)
     val tinyDb = TinyDB(context)
     val prayerString = tinyDb.getString(TIMINGS)

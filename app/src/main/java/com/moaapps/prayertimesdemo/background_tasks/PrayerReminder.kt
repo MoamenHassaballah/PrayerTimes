@@ -41,7 +41,7 @@ class PrayerReminder(val context: Context, val prayerTimes: PrayerTimes) {
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra("title", context.getString(R.string.prayer_notification_title, prayerName))
         intent.putExtra("message", context.getString(R.string.prayer_notification_message, prayerName))
-        val pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
@@ -49,7 +49,7 @@ class PrayerReminder(val context: Context, val prayerTimes: PrayerTimes) {
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra("title", context.getString(R.string.prayer_notification_title, prayerName))
         intent.putExtra("message", context.getString(R.string.prayer_notification_message, prayerName))
-        val pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.cancel(pendingIntent)
 
     }
